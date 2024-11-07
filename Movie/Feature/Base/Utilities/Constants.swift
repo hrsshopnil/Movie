@@ -10,5 +10,5 @@ import Foundation
 enum Constants {
     static let apiKey = "Your API Key"
     static let imageBaseUrl = "https://image.tmdb.org/t/p/original"
-    static let baseUrl = "https://api.themoviedb.org/3"
+    static let baseUrl = "https://api.themoviedb.org/3/"
 }
