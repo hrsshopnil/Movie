@@ -16,7 +16,7 @@ enum Endpoints {
         case .trending:
             "trending/movie/week"
         case .topRated:
-            "movie/top_rated"
+            "movie/top_rated?"
         case .genre:
             "genre/movie/list"
         case .movieReviews(let movieId):

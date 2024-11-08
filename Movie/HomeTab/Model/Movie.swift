@@ -8,7 +8,6 @@
 
 import Foundation
 
-// MARK: - Welcome
 struct MovieResponse: Codable {
     let page: Int
     let results: [Movie]
@@ -22,18 +21,17 @@ struct MovieResponse: Codable {
 }
 
 // MARK: - Result
-struct Movie: Codable {
+struct Movie: Codable, Identifiable {
     let adult: Bool
     let backdropPath: String
     let genreIDS: [Int]
     let id: Int
-    let originalLanguage: String
-    let originalTitle, overview: String
+    let originalLanguage, originalTitle, overview: String
     let popularity: Double
     let posterPath, releaseDate, title: String
     let video: Bool
     let voteAverage: Double
-    let voteCount, rating: Int
+    let voteCount: Int
 
     enum CodingKeys: String, CodingKey {
         case adult
@@ -48,8 +46,8 @@ struct Movie: Codable {
         case title, video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
-        case rating
     }
+
     
     static let placeHolder = Movie(adult: false,
                                    backdropPath: "/YL3GPOiDcNraIJOVDCZsoOBoDy.jpg",
@@ -67,10 +65,10 @@ struct Movie: Codable {
                                    title: "The Lord of the Rings",
                                    video: false,
                                    voteAverage: 2.3,
-                                   voteCount: 300,
-                                   rating: 3)
+                                   voteCount: 300)
 
 }
+
 
 extension Movie {
     var imageUrl: String {

@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct HomeView: View {
+    
     @State private var searchText: String = ""
+    @Namespace var nameSpace
+    @StateObject private var vm = HomeViewModel()
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             LazyVStack(alignment: .leading, spacing: 20) {
@@ -18,15 +22,23 @@ struct HomeView: View {
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     HStack {
-                        ForEach(1..<9) { _ in
-                            MovieCard(movie: .placeHolder)
+                        ForEach(vm.trendingMovies) { movie in
+                            MovieCard(movie: movie)
+                        }
+                    }
+                }
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(vm.genres) { genre in
+                            GenreCard(genre: genre, nameSpace: nameSpace, selectedGenre: $vm.selectedGenre)
                         }
                     }
                 }
                 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                    ForEach(1..<15, id: \.self){ _ in
-                        MovieCard(movie: .placeHolder, type: .grid)
+                    ForEach(vm.topRatedMovies){ movie in
+                        MovieCard(movie: movie, type: .grid)
                     }
                 }
             }
@@ -34,6 +46,11 @@ struct HomeView: View {
         .preferredColorScheme(.dark)
         .padding()
         .background(.appBackground)
+        .task {
+            await vm.fetchTrendingMovies()
+            await vm.fetchTopRatedMovies()
+            await vm.fetchGenres()
+        }
     }
 }
 
