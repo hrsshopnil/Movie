@@ -71,7 +71,19 @@ struct Movie: Codable, Identifiable {
 
 
 extension Movie {
-    var imageUrl: String {
-        Constants.imageBaseUrl + posterPath
+    
+    func getImage(type: ImageType) -> String {
+        switch type {
+        case .poster:
+            return Constants.imageBaseUrl + posterPath
+        case .backdrop:
+            return Constants.imageBaseUrl + backdropPath
+        }
     }
+}
+
+enum ImageType {
+    case poster, backdrop
+    
+    
 }

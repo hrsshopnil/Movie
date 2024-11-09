@@ -7,14 +7,15 @@
 
 import SwiftUI
 
-struct CustomCardView: View {
+struct CustomImageView: View {
     
     let width: CGFloat
     let height: CGFloat
     let movie: Movie
+    var imageType: ImageType = .poster
     
     var body: some View {
-        AsyncImage(url: URL(string: movie.imageUrl)) { image in
+        AsyncImage(url: URL(string: movie.getImage(type: imageType))) { image in
             image
                 .resizable()
                 .scaledToFill()
@@ -33,5 +34,5 @@ struct CustomCardView: View {
 }
 
 #Preview {
-    CustomCardView(width: 250, height: 250, movie: .placeHolder)
+    CustomImageView(width: 250, height: 250, movie: .placeHolder)
 }

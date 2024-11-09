@@ -11,7 +11,7 @@ struct MovieCard: View {
     let movie: Movie
     var type: MovieCardType = .poster
     var body: some View {
-        CustomCardView(width: width, height: height, movie: movie)
+        CustomImageView(width: width, height: height, movie: movie)
     }
 }
 

@@ -11,10 +11,11 @@ final class HomeViewModel: ObservableObject {
     
     @Published var topRatedMovies: [Movie] = []
     @Published var trendingMovies: [Movie] = []
+    @Published var selectedMovies: Movie? = nil
     @Published var selectedMovieForGenre: [Movie] = []
     @Published var genres: [Genre] = []
-    @Published var errorMessage: String = ""
     @Published var selectedGenre: Genre = .placeHolder
+    @Published var errorMessage: String = ""
     
     private let movieService = MovieService()
     
