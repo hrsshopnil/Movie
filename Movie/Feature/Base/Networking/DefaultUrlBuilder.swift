@@ -22,7 +22,6 @@ enum DefaultUrlBuilder {
         guard let url = urlComponents.url else {
             throw DefaultUrlBuilderError.invalidUrl
         }
-        print(url)
         return url
        
     }

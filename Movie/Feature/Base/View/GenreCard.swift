@@ -16,6 +16,7 @@ struct GenreCard: View {
     var body: some View {
         Text(genre.name)
             .poppins(genre.id == selectedGenre.id ? .bold : .medium, 18)
+            .opacity(genre.id == selectedGenre.id ? 1 : 0.8)
             .background {
                 ZStack {
                     if selectedGenre.id == genre.id {

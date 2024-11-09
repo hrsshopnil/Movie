@@ -32,12 +32,20 @@ struct HomeView: View {
                     HStack {
                         ForEach(vm.genres) { genre in
                             GenreCard(genre: genre, nameSpace: nameSpace, selectedGenre: $vm.selectedGenre)
+                                .onTapGesture {
+                                    withAnimation(.easeInOut) {
+                                        vm.selectedGenre = genre
+                                        Task {
+                                            await vm.fetchSelectedMovieForGenre()
+                                        }
+                                    }
+                                }
                         }
                     }
                 }
                 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                    ForEach(vm.topRatedMovies){ movie in
+                    ForEach(vm.selectedMovieForGenre){ movie in
                         MovieCard(movie: movie, type: .grid)
                     }
                 }

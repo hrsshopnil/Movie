@@ -11,6 +11,7 @@ final class HomeViewModel: ObservableObject {
     
     @Published var topRatedMovies: [Movie] = []
     @Published var trendingMovies: [Movie] = []
+    @Published var selectedMovieForGenre: [Movie] = []
     @Published var genres: [Genre] = []
     @Published var errorMessage: String = ""
     @Published var selectedGenre: Genre = .placeHolder
@@ -20,7 +21,6 @@ final class HomeViewModel: ObservableObject {
     func fetchTopRatedMovies() async {
         do {
             let movieResponse: MovieResponse = try await movieService.fetchData(from: .init(endpoint: .topRated))
-            print(movieResponse.results[0])
             topRatedMovies = movieResponse.results
         } catch {
             errorMessage = "Error: \(error)"
@@ -40,6 +40,20 @@ final class HomeViewModel: ObservableObject {
         do {
             let GenreResponse: GenreResponse = try await movieService.fetchData(from: .init(endpoint: .genre))
             genres = GenreResponse.genres
+            if let genre = genres.first {
+                selectedGenre = genre
+                await fetchSelectedMovieForGenre()
+            }
+        } catch {
+            errorMessage = "Error: \(error)"
+        }
+    }
+    
+    func fetchSelectedMovieForGenre() async {
+        do {
+            let api = ApiConstructor(endpoint: .discoverMovies, params: ["with_genres": "\(selectedGenre.id)"])
+            let reponse: MovieResponse = try await movieService.fetchData(from: api)
+            selectedMovieForGenre = reponse.results
         } catch {
             errorMessage = "Error: \(error)"
         }

@@ -15,5 +15,5 @@ struct Genre: Codable, Identifiable {
     let id: Int
     let name: String
     
-    static let placeHolder: Genre = .init(id: 1, name: "Thriller")
+    static let placeHolder: Genre = .init(id: 28, name: "Action")
 }
