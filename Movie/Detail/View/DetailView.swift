@@ -58,13 +58,34 @@ struct DetailView: View {
                     Spacer()
                 }
                 .padding(.top, 14)
-                Spacer()
+                
+                switch vm.selectedSection {
+                case .about:
+                    Text(vm.movie.overview)
+                        .padding(.top, 12)
+                case .reviews:
+                    ScrollView {
+                        VStack {
+                            ForEach(vm.reviews) { review in
+                                ReviewCardView(review: review)
+                            }
+                        }
+                    }
+                    .padding(.top, 12)
+                case .cast:
+                    Text("No Info found")
+                        .padding(.top, 12)
+                }
             }
             .padding()
             .padding(.top, contentPadding)
+            Spacer()
         }
         .preferredColorScheme(.dark)
         .background(Color.AppBackgroundColor)
+        .task {
+           await vm.fetchReviews()
+        }
     }
 }
 
