@@ -1,4 +1,4 @@
-# SwiftUI Movies App
+# Movies App
 
 A SwiftUI app that fetches and displays top-rated movies and movies by genre using the TMDB API. The app leverages **Swift Concurrency** (`async/await` and `MainActor`) and follows the **MVVM architecture** for clean code structure.
 
