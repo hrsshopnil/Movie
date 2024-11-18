@@ -20,7 +20,7 @@ struct HomeView: View {
                     .poppins(.bold, 20)
                 SearchBar(searchText: $searchText)
                 
-                ScrollView(.vertical, showsIndicators: false) {
+                ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(vm.trendingMovies) { movie in
                             MovieCard(movie: movie)
